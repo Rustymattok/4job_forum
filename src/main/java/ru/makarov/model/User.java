@@ -1,9 +1,13 @@
 package ru.makarov.model;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Model of User.
+ */
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor

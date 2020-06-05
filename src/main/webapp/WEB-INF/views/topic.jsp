@@ -25,53 +25,32 @@
         crossorigin="anonymous"></script>
 <div class="jumbotron">
     <h1 class="display-4">Spring Boot Forum</h1>
-    <p class="lead">Edit Post</p>
+    <p class="lead">Topic Post</p>
 </div>
-
-
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Created</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="post" items="${posts}">
-        <tr>
-            <td>${post.name}</td>
-            <td>${post.desc}</td>
-            <td>${post.created}</td>
-            <td><a href="/editPost/${post.id}">edit</a></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-
-<form:form method="POST" action="/edit" modelAttribute="newPost">
-    <div class="form-group row">
-        <form:label class="col-sm-2 col-form-label col-form-label-lg" path="name">Name</form:label>
-        <div class="col-sm-10">
-            <form:input type="text" class="form-control form-control-lg" path="name" placeholder="Введите имя поста"/>
+<div class="container">
+    <div class="container">
+        <h3><c:out value="${post.name}"/></h3>
+        <p><c:out value="${post.desc}"/></p>
+    </div>
+    <div class="container">
+        <c:forEach items="${post.comments}" var="comment">
+            <p><c:out value="${comment.name}"/></p>
+        </c:forEach>
+    </div>
+    <form:form method="POST" action="/topic" modelAttribute="comments">
+        <div class="form-group row">
+            <form:label class="col-sm-2 col-form-label col-form-label-lg" path="name">Name</form:label>
+            <div class="col-sm-10">
+                <form:input type="text" class="form-control form-control-lg" path="name"
+                            placeholder="Введите имя поста"/>
+                <form:input type="hidden" path="id" value="${post.id}"/>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <form:label class="col-sm-2 col-form-label col-form-label-lg" path="desc">Description</form:label>
-        <div class="col-sm-10">
-            <form:input type="text" class="form-control form-control-lg" path="desc"
-                        placeholder="Введите описание поста"/>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
         </div>
-    </div>
-
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
-    </div>
-    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-</form:form>
-
-
+    </form:form>
+</div>
 </body>
 
 </html>

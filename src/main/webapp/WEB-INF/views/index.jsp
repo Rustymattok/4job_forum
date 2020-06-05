@@ -22,7 +22,7 @@
         <h4>Форум job4j</h4>
     </div>
     <div class="row">
-        <table class="table">fdcu
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col">Тема</th>
@@ -32,6 +32,7 @@
             <c:forEach items="${posts}" var="post">
                 <tr>
                     <td><c:out value="${post.name}"/></td>
+                    <td><a href="/index/${post.id}">comments</a></td>
                 </tr>
             </c:forEach>
             </tbody>
