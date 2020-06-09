@@ -40,7 +40,7 @@
                                                                                     name="password"
                                                                                     placeholder="password"/> </label>
     </div>
-    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+    <%--<input type="hidden" text="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
     <div class="col-auto">
         <input type="submit" class="btn btn-primary mb-2" value="Sign In"/>
     </div>

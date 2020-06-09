@@ -1,11 +1,13 @@
 package ru.makarov.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.makarov.model.Comments;
-import ru.makarov.model.Post;
-import ru.makarov.service.PostService;
+import ru.makarov.model.Topic;
+import ru.makarov.service.TopicStore;
+
+import java.util.List;
 
 /**
  * Controller for work with main page.
@@ -13,48 +15,44 @@ import ru.makarov.service.PostService;
 @Controller
 public class IndexControl {
     /**
-     * Bean for Data Base messageStore.
+     * Bean for Data Base topics.
      */
-    private final PostService messageStore;
+    private TopicStore topicStore;
 
-    public IndexControl(PostService posts) {
-        this.messageStore = posts;
+    @Autowired
+    public IndexControl(TopicStore postStore) {
+        this.topicStore = postStore;
+
     }
 
-    /**
-     * Take info for present main  page.
-     *
-     * @param model - add data of all messageStore.
-     * @return - page with data.
-     */
+//todo for roles update method.
 
+//    /**
+//     * Get edit page by id.
+//     *
+//     * @param id    - id topic.
+//     * @param model - created new topic in forum.
+//     * @return - edit page of topic with param.
+//     */
+//
+//    @GetMapping("/index/{id}")
+//    public String postEdit(@PathVariable int id, Model model) {
+//        Topic post = topicStore.findAllById((long) id);
+//        model.addAttribute("post", post);
+//        model.addAttribute("comments", new Comments());
+//        return "topic";
+//    }
+
+    /**
+     * Main page of forum.
+     *
+     * @param model - attribute for all topics.
+     * @return - index page.
+     */
     @GetMapping({"/", "/index"})
-    public String index(Model model) {
-        model.addAttribute("posts", messageStore.getAll());
+    public String testPage(Model model) {
+        List<Topic> listTopic = topicStore.findAll();
+        model.addAttribute("posts", listTopic);
         return "index";
     }
-
-    /**
-     * Get edit page by id.
-     *
-     * @param id    - id post.
-     * @param model - created new post in forum.
-     * @return - edit page of post with param.
-     */
-
-    @GetMapping("/index/{id}")
-    public String postEdit(@PathVariable int id, Model model) {
-        Post post = messageStore.getPostById(id);
-        model.addAttribute("post", post);
-        model.addAttribute("comments", new Comments());
-        return "topic";
-    }
-
-    @PostMapping("/topic")
-    public String postEdit(@ModelAttribute Comments comments) {
-        messageStore.getPostById(comments.getId()).addComments(comments);
-        String redirectUrl = "/index/" + comments.getId();
-        return "redirect:" + redirectUrl;
-    }
-
 }

@@ -36,8 +36,8 @@
         <form:input type="text" class="form-control form-control-lg" path="desc" value="${post.desc}"/>
     </label></div>
     <form:input type="hidden" path="id" value="${post.id}"/>
-    <%--<form:input type="hidden" path="created" value="${post.created}"  />--%>
-    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+    <%--<form:input type="hidden" path="created" value="${topic.created}"  />--%>
+    <%--<input type="hidden" text="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
     <div class="col-auto">
         <input type="submit" class="btn btn-primary mb-2" value="Save"/>
     </div>

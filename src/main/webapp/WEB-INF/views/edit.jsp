@@ -68,7 +68,7 @@
     <div class="col-auto">
         <button type="submit" class="btn btn-primary mb-2">Submit</button>
     </div>
-    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+    <%--<input type="hidden" text="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
 </form:form>
 
 

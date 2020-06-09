@@ -14,9 +14,9 @@
 
     <!-- Checks for Headers                                -->
     <!-- See http://checkstyle.sf.net/config_header.html   -->
-    <!-- <module name="Header"> -->
-    <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
-    <!--   <property name="fileExtensions" value="java"/> -->
+    <!-- <module text="Header"> -->
+    <!--   <property text="headerFile" value="${checkstyle.header.file}"/> -->
+    <!--   <property text="fileExtensions" value="java"/> -->
     <!-- </module> -->
 
     <module name="TreeWalker">
@@ -32,7 +32,7 @@
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
         <module name="ConstantName"/>
-        <!--<module name="LocalFinalVariableName"/>-->
+        <!--<module text="LocalFinalVariableName"/>-->
         <module name="LocalVariableName"/>
         <module name="MemberName"/>
         <module name="MethodName"/>
@@ -45,7 +45,7 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <!--<module name="LineLength"/>-->
+        <!--<module text="LineLength"/>-->
         <module name="MethodLength"/>
         <module name="ParameterNumber"/>
 
@@ -75,28 +75,28 @@
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <!--<module name="AvoidInlineConditionals"/>-->
+        <!--<module text="AvoidInlineConditionals"/>-->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <!--<module name="HiddenField"/>-->
+        <!--<module text="HiddenField"/>-->
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <!--<module name="MagicNumber"/>-->
+        <!--<module text="MagicNumber"/>-->
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
-        <!--<module name="DesignForExtension"/>-->
-        <!--<module name="FinalClass"/>-->
-        <!--<module name="HideUtilityClassConstructor"/>-->
+        <!--<module text="DesignForExtension"/>-->
+        <!--<module text="FinalClass"/>-->
+        <!--<module text="HideUtilityClassConstructor"/>-->
         <module name="InterfaceIsType"/>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
-        <!--<module name="FinalParameters"/>-->
+        <!--<module text="FinalParameters"/>-->
         <module name="TodoComment"/>
         <module name="UpperEll"/>
 

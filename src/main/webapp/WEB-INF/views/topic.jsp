@@ -30,18 +30,18 @@
 <div class="container">
     <div class="container">
         <h3><c:out value="${post.name}"/></h3>
-        <p><c:out value="${post.desc}"/></p>
+        <p><c:out value="${post.content}"/></p>
     </div>
     <div class="container">
         <c:forEach items="${post.comments}" var="comment">
-            <p><c:out value="${comment.name}"/></p>
+            <p><c:out value="${comment.text}"/></p>
         </c:forEach>
     </div>
     <form:form method="POST" action="/topic" modelAttribute="comments">
         <div class="form-group row">
             <form:label class="col-sm-2 col-form-label col-form-label-lg" path="name">Name</form:label>
             <div class="col-sm-10">
-                <form:input type="text" class="form-control form-control-lg" path="name"
+                <form:input type="text" class="form-control form-control-lg" path="text"
                             placeholder="Введите имя поста"/>
                 <form:input type="hidden" path="id" value="${post.id}"/>
             </div>

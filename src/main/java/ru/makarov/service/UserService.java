@@ -1,30 +1,42 @@
 package ru.makarov.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.makarov.dao.UserServiceCrud;
 import ru.makarov.model.User;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class for simulate Data Base User.
- */
 @Service
-public class UserService {
-    private final List<User> listUser = new ArrayList<>();
+public class UserService implements UserStore {
+    private UserServiceCrud userServiceCrud;
 
-    public UserService() {
-        listUser.add(new User(1L, "pass1", "login1", "Vladimir1", "Makarov1", "mrArxi@gmail.com", true));
-        listUser.add(new User(2L, "pass2", "login2", "Vladimir2", "Makarov2", "mrArxi@gmail.com", true));
-        listUser.add(new User(3L, "pass3", "login3", "Vladimir3", "Makarov3", "mrArxi@gmail.com", true));
-        listUser.add(new User(4L, "pass4", "login4", "Vladimir4", "Makarov4", "mrArxi@gmail.com", true));
+    @Autowired
+    public UserService(UserServiceCrud userServiceCrud) {
+        this.userServiceCrud = userServiceCrud;
     }
 
-    public List<User> getAll() {
-        return listUser;
+    @Override
+    @Transactional
+    public User findByName(String username) {
+        return userServiceCrud.findUserByUsername(username);
     }
 
-    public void addUser(User user) {
-        listUser.add(user);
+    @Override
+    @Transactional
+    public void save(User user) {
+        userServiceCrud.save(user);
+    }
+
+    @Override
+    @Transactional
+    public List<User> findAll() {
+        return userServiceCrud.findAll();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userServiceCrud.findUserById(id);
     }
 }
