@@ -2,7 +2,7 @@
 Forum-sample Spring Boot
 # Information
 Описание
-[![ALT-ТЕКСТ ИЗОБРАЖЕНИЯ](https://github.com/Rustymattok/java-a-to-z/blob/master/Cinema/work-schem-2.JPG)]
+[![ALT-ТЕКСТ ИЗОБРАЖЕНИЯ](https://github.com/Rustymattok/4job_forum/blob/master/work-schem.JPG)]
 # Targets 
 #stack technology
 
