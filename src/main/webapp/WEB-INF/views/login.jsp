@@ -1,18 +1,18 @@
+<%--@elvariable id="_csrf" type="org.springframework.security.web.server.csrf.DefaultCsrfToken"--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%@ page session="false" isELIgnored="false" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-<%--@elvariable id="_csrf" type="org.springframework.security.web.server.csrf.DefaultCsrfToken"--%>
+
 <html>
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Hello, world!</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -25,10 +25,8 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 <div class="jumbotron">
-    <h1 class="display-4">Spring Boot Forum</h1>
-    <p class="lead">Login Page</p>
+    <h1 class="display-4">Twit Test Application MVC Spring</h1>
 </div>
-
 <form action="<c:url value="/login"/>" method="post">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label col-form-label-lg"> User Name : <input type="text"
@@ -40,7 +38,7 @@
                                                                                     name="password"
                                                                                     placeholder="password"/> </label>
     </div>
-    <%--<input type="hidden" text="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <div class="col-auto">
         <input type="submit" class="btn btn-primary mb-2" value="Sign In"/>
     </div>

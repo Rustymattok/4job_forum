@@ -56,40 +56,46 @@
                     <h3>Admin panel User Info</h3>
                 </div>
                 <!--//todo сюда перенести форма User для редактирования админом-->
-                <form:form method="POST" action="/registration" modelAttribute="user">
+                <form:form method="POST" action="/userform" modelAttribute="user">
                     <div class="signup__form">
                         <div class="row" data-visible="desktop">
                             <div class="col-md-6">
                                 <div class="signup__section">
-                                    <form:label class="signup__label" path="firstName">First Name</form:label>
+                                    <label class="signup__label" for="firstName">First Name</label>
                                     <form:input type="text" class="form-control" path="firstName"
-                                                placeholder="Имя пользователя"/>
+                                                value="${user.firstName}"/>
+                                        <%--<label class="signup__label" for="first-name">First Name</label>--%>
+                                        <%--<input type="text" class="form-control" id="first-name" value="${user.firstName}">--%>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="signup__section">
-                                    <form:label class="signup__label" path="lastName">Last Name</form:label>
+                                    <label class="signup__label" for="lastName">Last Name</label>
                                     <form:input type="text" class="form-control" path="lastName"
-                                                placeholder="Фамилия пользователя"/>
+                                                value="${user.lastName}"/>
+                                        <%--<input type="text" class="form-control" id="last-name" value="${user.lastName}">--%>
                                 </div>
                             </div>
                         </div>
                         <div class="signup__section">
-                            <form:label class="signup__label" path="username">Username</form:label>
-                            <form:input type="text" class="form-control" path="username"
-                                        placeholder="Логин"/>
+                            <label class="signup__label" for="username">Username</label>
+                            <form:input type="text" class="form-control" path="username" value="${user.username}"/>
+                                <%--<input type="text" class="form-control" id="username" value="${user.username}">--%>
                         </div>
                         <div class="signup__section">
-                            <form:label class="signup__label" path="email">Emain Address</form:label>
-                            <form:input type="text" class="form-control" path="email"
-                                        placeholder="Почта"/>
+                            <label class="signup__label" for="email">Emain Address</label>
+                            <form:input type="text" class="form-control" path="email" value="${user.email}"/>
+                                <%--<input type="text" class="form-control" id="email" value="${user.email}">--%>
                         </div>
                         <div class="signup__section">
-                            <form:label class="signup__label" path="password">Password</form:label>
-                            <form:input type="text" class="form-control" path="password"
-                                        placeholder="Пароль"/>
+                            <label class="signup__label" for="password">Password</label>
+                            <div class="message-input">
+                                <form:input type="text" class="form-control" path="password" value="${user.password}"/>
+                                    <%--<input type="text" class="form-control" id="password" value="${user.password}">--%>
+                            </div>
                         </div>
-                            <%--<form:input type="hidden" path="id" value="${user.id}"/>--%>
+                        <form:checkboxes element="li" path="roles" items="${rolesList}"/>
+                        <form:input type="hidden" path="id" value="${user.id}"/>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="col-auto">
                             <input type="submit" class="signup__btn-create btn btn--type-02" value="Save"/>
@@ -100,6 +106,7 @@
             </div>
         </div>
     </main>
+
     <!-- FOOTER -->
     <footer class="signup__footer">
         <div class="container">
@@ -121,9 +128,11 @@
         </div>
     </footer>
 </div>
+
 <!-- JAVA SCRIPT -->
 <script src="../../resources/vendor/jquery/jquery.min.js"></script>
 <script src="../../resources/vendor/velocity/velocity.min.js"></script>
 <script src="../../resources/js/app.js"></script>
+
 </body>
 </html>

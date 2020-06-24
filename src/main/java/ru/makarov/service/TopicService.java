@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.makarov.dao.TopicServiceCrud;
 import ru.makarov.model.Topic;
+import ru.makarov.model.User;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class TopicService implements TopicStore {
     @Override
     public Topic findAllById(Long id) {
         return topicServiceCrud.findAllById(id);
+    }
+
+    @Override
+    public List<Topic> findAllByAuthor(User user) {
+        return topicServiceCrud.findAllByAuthor(user);
     }
 }

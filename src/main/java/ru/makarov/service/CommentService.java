@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.makarov.dao.CommentServiceCrud;
 import ru.makarov.model.Comments;
 import ru.makarov.model.Topic;
+import ru.makarov.model.User;
 
 import java.util.List;
 
@@ -34,5 +35,11 @@ public class CommentService implements CommentsStore {
     @Transactional
     public List<Comments> findAllByTopic(Topic topic) {
         return commentServiceCrud.findAllByTopic(topic);
+    }
+
+    @Override
+    @Transactional
+    public List<Comments> findAllByAuthor(User user) {
+        return commentServiceCrud.findAllByAuthor(user);
     }
 }

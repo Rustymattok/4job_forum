@@ -49,7 +49,7 @@
                 </div>
                 <nav class="dropdown dropdown--design-01" data-dropdown-list="logo">
                     <ul class="dropdown__catalog">
-                        <li><a href="/index1">Home Page</a></li>
+                        <li><a href="<c:url value="/index"/>">Home Page</a></li>
                         <li><a href="singletopic.jsp">My Topics</a></li>
                         <li><a href="simple-signup.html">Sign up Page</a></li>
                         <li><a href="create-topic.html">Create Topic Page</a></li>
@@ -278,7 +278,7 @@
                                 </div>
                                 <div class="topic__caption">
                                     <div class="topic__name">
-                                        <a href="#"><c:out value="${topic.author.firstName}"/></a>
+                                        <a href="#"><c:out value="${reply.author.firstName}"/></a>
                                     </div>
                                 </div>
                                 <a href="#" class="topic__arrow topic__arrow--up"><i class="icon-Arrow_Up"></i></a>

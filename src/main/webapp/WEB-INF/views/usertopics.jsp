@@ -64,9 +64,10 @@
                 </div>
                 <nav class="dropdown dropdown--design-01" data-dropdown-list="logo">
                     <ul class="dropdown__catalog">
-                        <li><a href="<c:url value="/index"/>">Home Page</a></li>
-                        <li><a href="<c:url value="/usertopics/${online.id}"/>">My Topics</a></li>
-                        <li><a href="<c:url value="/newtopic"/>">Create Topic Page</a></li>
+                        <li><a href="/index">Home Page</a></li>
+                        <li><a href="singletopic.jsp">My Topics</a></li>
+                        <li><a href="simple-signup.html">Sign up Page</a></li>
+                        <li><a href="create-topic.html">Create Topic Page</a></li>
                     </ul>
                 </nav>
             </div>
@@ -236,28 +237,18 @@
         <div class="posts">
             <div class="posts__head">
                 <div class="posts__topic">Topic</div>
-                <%--<div class="posts__category">Category</div>--%>
-                <div class="posts__users">Users</div>
-                <div class="posts__replies">Replies</div>
-                <div class="posts__views">Views</div>
-                <div class="posts__activity">Activity</div>
             </div>
-            <c:forEach items="${posts}" var="post">
-                <%--<tr>--%>
-                <%--<td><c:out value="${topic.text}"/></td>--%>
-                <%--<td><a href="/index/${topic.id}">comments</a></td>--%>
-                <%--</tr>--%>
+            <c:forEach items="${userTopic}" var="topic">
                 <div class="posts__body">
                     <div class="posts__item bg-f2f4f6">
                         <div class="posts__section-left">
                             <div class="posts__topic">
                                 <div class="posts__content">
-                                    <a href="/singletopic/${post.id}">
-                                        <h3><c:out value="${post.name}"/></h3>
+                                    <a href="/singletopic/${topic.author.id}">
+                                        <h3><c:out value="${topic.name}"/></h3>
                                     </a>
                                 </div>
                             </div>
-                            <div class="posts__users"><c:out value="${post.author.firstName}"/></div>
                         </div>
                         <div class="posts__section-right">
                             <div class="posts__users">

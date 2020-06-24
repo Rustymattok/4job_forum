@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.makarov.dao.UserServiceCrud;
 import ru.makarov.model.Comments;
 import ru.makarov.model.Topic;
+import ru.makarov.model.User;
 import ru.makarov.service.CommentService;
 import ru.makarov.service.TopicStore;
 import ru.makarov.service.UserStore;
@@ -26,7 +28,7 @@ import java.util.List;
  */
 @Controller
 public class TopicController {
-    private final UserStore userStore;
+    private final UserServiceCrud userStore;
     private final TopicStore topicStore;
     private final CommentService commentService;
 
@@ -36,7 +38,7 @@ public class TopicController {
      * @param commentService - data base of comments.
      */
     @Autowired
-    public TopicController(UserStore userStore, TopicStore topicStore, CommentService commentService) {
+    public TopicController(UserServiceCrud userStore, TopicStore topicStore, CommentService commentService) {
         this.userStore = userStore;
         this.topicStore = topicStore;
         this.commentService = commentService;
@@ -79,13 +81,14 @@ public class TopicController {
      * @param currentTopic - current topic.
      * @return - page of current topic, connect new comment to all comments.
      */
-    //todo add user instead of 1L during connect security + roles.
     @PostMapping("/singletopic")
     public String commentPost(@ModelAttribute("comment") Comments comment,
                               @ModelAttribute("topic") Topic currentTopic) {
         Topic topic = topicStore.findAllById(currentTopic.getId());
         comment.setTopic(topic);
-        comment.setAuthor(userStore.findById(1L));
+        User user = (User) org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        comment.setAuthor(userStore.findUserByUsername(user.getUsername()));
         commentService.addComments(comment);
         String redirectUrl = "/singletopic/" + topic.getId();
         return "redirect:" + redirectUrl;
@@ -97,12 +100,13 @@ public class TopicController {
      * @param topic - new Topic.
      * @return - new Topic add to data base, common page.
      */
-    //todo add user instead of 1L during connect security + roles.
     @PostMapping("/newtopic")
     public String createTopic(@ModelAttribute("topic") Topic topic) {
         Calendar currentTime = new GregorianCalendar();
         topic.setCreated(currentTime);
-        topic.setAuthor(userStore.findById(1L));
+        User user = (User) org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        topic.setAuthor(userStore.findUserById(user.getId()));
         topicStore.save(topic);
         return "redirect:/index";
     }

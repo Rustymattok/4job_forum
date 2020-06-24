@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.makarov.model.Topic;
+import ru.makarov.model.User;
 import ru.makarov.service.TopicStore;
 
 import java.util.List;
@@ -22,26 +23,7 @@ public class IndexControl {
     @Autowired
     public IndexControl(TopicStore postStore) {
         this.topicStore = postStore;
-
     }
-
-//todo for roles update method.
-
-//    /**
-//     * Get edit page by id.
-//     *
-//     * @param id    - id topic.
-//     * @param model - created new topic in forum.
-//     * @return - edit page of topic with param.
-//     */
-//
-//    @GetMapping("/index/{id}")
-//    public String postEdit(@PathVariable int id, Model model) {
-//        Topic post = topicStore.findAllById((long) id);
-//        model.addAttribute("post", post);
-//        model.addAttribute("comments", new Comments());
-//        return "topic";
-//    }
 
     /**
      * Main page of forum.
@@ -51,8 +33,11 @@ public class IndexControl {
      */
     @GetMapping({"/", "/index"})
     public String testPage(Model model) {
+        User user = (User) org.springframework.security.core.context.SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
         List<Topic> listTopic = topicStore.findAll();
         model.addAttribute("posts", listTopic);
+        model.addAttribute("online", user);
         return "index";
     }
 }
