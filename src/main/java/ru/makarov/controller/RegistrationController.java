@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.makarov.dao.UserServiceCrud;
 import ru.makarov.model.Role;
 import ru.makarov.model.User;
-import ru.makarov.service.UserService;
 
 import java.util.Collections;
 

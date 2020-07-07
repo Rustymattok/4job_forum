@@ -13,7 +13,6 @@ import ru.makarov.model.Topic;
 import ru.makarov.model.User;
 import ru.makarov.service.CommentService;
 import ru.makarov.service.TopicStore;
-import ru.makarov.service.UserStore;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
