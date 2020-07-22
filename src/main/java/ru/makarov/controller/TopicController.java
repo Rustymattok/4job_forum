@@ -80,16 +80,15 @@ public class TopicController {
      * @param currentTopic - current topic.
      * @return - page of current topic, connect new comment to all comments.
      */
-    @PostMapping("/singletopic")
-    public String commentPost(@ModelAttribute("comment") Comments comment,
-                              @ModelAttribute("topic") Topic currentTopic) {
+    @PostMapping("/singletopic/{id}")
+    public String commentPost(@PathVariable int id, @ModelAttribute("comment") Comments comment, @ModelAttribute("topic") Topic currentTopic) {
         Topic topic = topicStore.findAllById(currentTopic.getId());
         comment.setTopic(topic);
         User user = (User) org.springframework.security.core.context.SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         comment.setAuthor(userStore.findUserByUsername(user.getUsername()));
         commentService.addComments(comment);
-        String redirectUrl = "/singletopic/" + topic.getId();
+        String redirectUrl = "/singletopic/" + id;
         return "redirect:" + redirectUrl;
     }
 

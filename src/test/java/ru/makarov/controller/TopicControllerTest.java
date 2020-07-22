@@ -1,15 +1,28 @@
 package ru.makarov.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.makarov.SpringWebApplication;
+import ru.makarov.model.Comments;
+import ru.makarov.model.Topic;
+import ru.makarov.service.CommentService;
+import ru.makarov.service.TopicService;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -18,6 +31,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TopicControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private TopicService topics;
+
+    @MockBean
+    private CommentService comments;
 
     /**
      * If User not login rederect him to login page.
@@ -59,5 +78,62 @@ public class TopicControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("singletopic"));
+    }
+
+    /**
+     * If put data to POST form save elements - work correct.
+     *
+     * @throws Exception - in case if Except status is not the same
+     *                   - in case if Except name topic is not the same
+     *                   - in case if Except content topic is not the same
+     *                   - in case if Except session user name is not the same
+     */
+    @Test
+    @WithUserDetails("Rustymattok")
+    public void shouldReturnNewTopic() throws Exception {
+        String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
+        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
+        CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+        this.mockMvc.perform(
+                post("/newtopic")
+                        .sessionAttr(TOKEN_ATTR_NAME, csrfToken)
+                        .param(csrfToken.getParameterName(), csrfToken.getToken())
+                        .param("name", "privet3")
+                        .param("content", "smth"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Topic> argument = ArgumentCaptor.forClass(Topic.class);
+        verify(topics).save(argument.capture());
+        assertThat(argument.getValue().getName(), is("privet3"));
+        assertThat(argument.getValue().getContent(), is("smth"));
+        assertThat(argument.getValue().getAuthor().getUsername(), is("Rustymattok"));
+    }
+
+    /**
+     * If put data to POST form add comments - work correct.
+     *
+     * @throws Exception - in case if Except status is not the same
+     *                   - in case if Except content comment is not the same
+     *                   - in case if Except id topic is not the same
+     *                   - in case if Except session user name is not the same
+     */
+    @Test
+    @WithUserDetails("Rustymattok")
+    public void shouldReturnNewComment() throws Exception {
+        String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
+        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
+        CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+        this.mockMvc.perform(
+                post("/singletopic/27")
+                        .sessionAttr(TOKEN_ATTR_NAME, csrfToken)
+                        .param(csrfToken.getParameterName(), csrfToken.getToken())
+                        .param("text", "check comment"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Comments> argument = ArgumentCaptor.forClass(Comments.class);
+        verify(comments).addComments(argument.capture());
+        assertThat(argument.getValue().getText(), is("check comment"));
+        assertThat(argument.getValue().getId(), is(27L));
+        assertThat(argument.getValue().getAuthor().getUsername(), is("Rustymattok"));
     }
 }

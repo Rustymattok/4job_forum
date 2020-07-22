@@ -105,9 +105,11 @@ public class AdminController {
      * @param user - wich was took from data.
      * @return - admin page.
      */
-    @PostMapping("/admin/userform")
-    public String userSaveRoles(@ModelAttribute("user") User user) {
-        User userEdit = userServiceCrud.findUserById(user.getId());
+    @PostMapping("/admin/userform/{id}")
+    public String userSaveRoles(
+            @PathVariable int id,
+            @ModelAttribute("user") User user) {
+        User userEdit = userServiceCrud.findUserById((long) id);
         userEdit.getRoles().clear();
         userEdit.setRoles(user.getRoles());
         userEdit.setFirstName(user.getFirstName());

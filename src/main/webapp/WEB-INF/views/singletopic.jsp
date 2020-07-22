@@ -293,7 +293,7 @@
                 </div>
             </div>
         </div>
-        <form:form method="POST" action="/singletopic" modelAttribute="comment">
+        <form:form method="POST" action="/singletopic/${topic.id}" modelAttribute="comment">
             <div class="create__section create__textarea">
                 <form:textarea class="form-control" id="description" path="text" placeholder="Add here you text"/>
                 <form:input type="hidden" path="topic" value="${topic.id}"/>

@@ -5,7 +5,7 @@ Forum-sample Spring Boot
 [![ALT-ТЕКСТ ИЗОБРАЖЕНИЯ](https://github.com/Rustymattok/4job_forum/blob/master/work-schem.JPG)
 # Targets 
 #stack technology
-Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap.
+Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap,Junit,Mockito
 #todo list
 - добавить опции модератора
     - может удалять посты
@@ -16,3 +16,6 @@ Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap.
     - каждый пользователь можем менять свой профиль
     - нельзя менять логин и пароль
 - реализовать механизм поиска по форуму.
+
+- добавить БД для тестов
+- добавить миграцию БД
