@@ -1,9 +1,12 @@
 package ru.makarov.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.makarov.dao.UserServiceCrud;
 import ru.makarov.model.Topic;
 import ru.makarov.model.User;
 import ru.makarov.service.TopicStore;
@@ -20,9 +23,12 @@ public class IndexControl {
      */
     private TopicStore topicStore;
 
+    private UserServiceCrud userServiceCrud;
+
     @Autowired
-    public IndexControl(TopicStore postStore) {
+    public IndexControl(TopicStore postStore, UserServiceCrud userServiceCrud) {
         this.topicStore = postStore;
+        this.userServiceCrud = userServiceCrud;
     }
 
     /**
@@ -33,8 +39,8 @@ public class IndexControl {
      */
     @GetMapping({"/", "/index"})
     public String testPage(Model model) {
-        User user = (User) org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceCrud.findUserByUsername(auth.getName());
         List<Topic> listTopic = topicStore.findAll();
         model.addAttribute("posts", listTopic);
         model.addAttribute("online", user);

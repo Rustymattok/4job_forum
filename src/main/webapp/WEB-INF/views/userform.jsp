@@ -56,7 +56,7 @@
                     <h3>Admin panel User Info</h3>
                 </div>
                 <!--//todo сюда перенести форма User для редактирования админом-->
-                <form:form method="POST" action="/userform" modelAttribute="user">
+                <form:form method="POST" action="/admin/userform/${user.id}" modelAttribute="user">
                     <div class="signup__form">
                         <div class="row" data-visible="desktop">
                             <div class="col-md-6">

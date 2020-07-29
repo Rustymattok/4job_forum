@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
@@ -58,7 +58,7 @@ public class TopicControllerTest {
      * @throws Exception - in case if Except is not the same.
      */
     @Test
-    @WithUserDetails("Rustymattok")
+    @WithMockUser("Rustymattok")
     public void shouldOkPage() throws Exception {
         this.mockMvc.perform(get("/newtopic"))
                 .andDo(print())
@@ -72,7 +72,7 @@ public class TopicControllerTest {
      * @throws Exception - in case if Except is not the same.
      */
     @Test
-    @WithUserDetails("Rustymattok")
+    @WithMockUser("Rustymattok")
     public void shouldOkPageByChoosedUser() throws Exception {
         this.mockMvc.perform(get("/singletopic/1"))
                 .andDo(print())
@@ -89,7 +89,7 @@ public class TopicControllerTest {
      *                   - in case if Except session user name is not the same
      */
     @Test
-    @WithUserDetails("Rustymattok")
+    @WithMockUser("Rustymattok")
     public void shouldReturnNewTopic() throws Exception {
         String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
         HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
@@ -118,7 +118,7 @@ public class TopicControllerTest {
      *                   - in case if Except session user name is not the same
      */
     @Test
-    @WithUserDetails("Rustymattok")
+    @WithMockUser("Rustymattok")
     public void shouldReturnNewComment() throws Exception {
         String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
         HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();

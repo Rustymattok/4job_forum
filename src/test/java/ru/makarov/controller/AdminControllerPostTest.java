@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,10 +29,9 @@ public class AdminControllerPostTest {
      * If put data to POST form update elements - work correct.
      *
      * @throws Exception - in case if Except status is not the same.
-     *
      */
     @Test
-    @WithUserDetails("Rustymattok")
+    @WithMockUser(username = "Rustymattok", roles = {"USER", "ADMIN"})
     public void shouldReturnNewTopic() throws Exception {
         String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
         HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();

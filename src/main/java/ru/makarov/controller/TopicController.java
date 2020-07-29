@@ -1,6 +1,8 @@
 package ru.makarov.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,8 +86,10 @@ public class TopicController {
     public String commentPost(@PathVariable int id, @ModelAttribute("comment") Comments comment, @ModelAttribute("topic") Topic currentTopic) {
         Topic topic = topicStore.findAllById(currentTopic.getId());
         comment.setTopic(topic);
-        User user = (User) org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
+//        User user = (User) org.springframework.security.core.context.SecurityContextHolder
+//                .getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userStore.findUserByUsername(auth.getName());
         comment.setAuthor(userStore.findUserByUsername(user.getUsername()));
         commentService.addComments(comment);
         String redirectUrl = "/singletopic/" + id;
@@ -102,8 +106,8 @@ public class TopicController {
     public String createTopic(@ModelAttribute("topic") Topic topic) {
         Calendar currentTime = new GregorianCalendar();
         topic.setCreated(currentTime);
-        User user = (User) org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userStore.findUserByUsername(auth.getName());
         topic.setAuthor(userStore.findUserById(user.getId()));
         topicStore.save(topic);
         return "redirect:/index";

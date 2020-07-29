@@ -60,7 +60,6 @@ public class RegistrationControllerTest {
      *                   - in case if Except email user is not the same
      *                   - in case if Except password user is not the same
      *                   - in case if Except Role user is not the same (default USER role)
-     *
      */
     @Test
     @WithAnonymousUser

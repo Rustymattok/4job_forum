@@ -2,6 +2,8 @@ package ru.makarov.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ import ru.makarov.service.TopicStore;
 import java.util.*;
 
 @Controller
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     private final UserServiceCrud userServiceCrud;
     private final TopicStore topicStore;
@@ -37,8 +39,8 @@ public class AdminController {
      */
     @GetMapping("/admin")
     public String adminPanel(Model model) {
-        User user = (User) org.springframework.security.core.context.SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceCrud.findUserByUsername(auth.getName());
         List<User> userList = userServiceCrud.findAll();
         model.addAttribute("request", "");
         model.addAttribute("online", user);
@@ -54,6 +56,7 @@ public class AdminController {
      * @param model - to jsp page. Usertopic - list of all user's topic.
      * @return - page usertopics.
      */
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     @GetMapping("/usertopics/{id}")
     public String allTopic(@PathVariable int id, Model model) {
         List<Topic> topicList = topicStore.findAllByAuthor(userServiceCrud.findUserById((long) id));

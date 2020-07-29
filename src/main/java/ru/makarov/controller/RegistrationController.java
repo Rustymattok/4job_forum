@@ -48,7 +48,6 @@ public class RegistrationController {
      */
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") User user) {
-        System.out.println(user.getFirstName());
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userServiceCrud.save(user);
