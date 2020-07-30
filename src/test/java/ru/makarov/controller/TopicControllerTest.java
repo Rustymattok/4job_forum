@@ -124,16 +124,16 @@ public class TopicControllerTest {
         HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
         CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
         this.mockMvc.perform(
-                post("/singletopic/27")
+                post("/singletopic/1")
                         .sessionAttr(TOKEN_ATTR_NAME, csrfToken)
                         .param(csrfToken.getParameterName(), csrfToken.getToken())
-                        .param("text", "check comment"))
+                        .param("text", "spring boot help"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Comments> argument = ArgumentCaptor.forClass(Comments.class);
         verify(comments).addComments(argument.capture());
-        assertThat(argument.getValue().getText(), is("check comment"));
-        assertThat(argument.getValue().getId(), is(27L));
+        assertThat(argument.getValue().getText(), is("spring boot help"));
+        assertThat(argument.getValue().getId(), is(1L));
         assertThat(argument.getValue().getAuthor().getUsername(), is("Rustymattok"));
     }
 }

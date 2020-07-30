@@ -41,11 +41,11 @@ public class AdminControllerPostTest {
                 post("/admin/userform/1")
                         .sessionAttr(TOKEN_ATTR_NAME, csrfToken)
                         .param(csrfToken.getParameterName(), csrfToken.getToken())
-                        .param("firstName", "Aksana")
-                        .param("lastName", "Makarova")
+                        .param("firstName", "Vladimir")
+                        .param("lastName", "Vladimir")
                         .param("password", "12345")
                         .param("email", "mrArxi@gmail.com")
-                        .param("username", "Aksana"))
+                        .param("username", "Rustymattok"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
     }
