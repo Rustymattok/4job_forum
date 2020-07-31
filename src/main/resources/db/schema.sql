@@ -33,5 +33,5 @@ CREATE TABLE comments
   user_id bigint,
   topic_id bigint,
   CONSTRAINT comments_pkey PRIMARY KEY (id)
-)
+);
 
