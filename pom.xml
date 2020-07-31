@@ -13,7 +13,7 @@
     <groupId>4jobforum</groupId>
     <artifactId>4jobforum</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
 
     <properties>
