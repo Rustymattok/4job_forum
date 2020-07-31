@@ -34,6 +34,7 @@ CREATE TABLE comments
   topic_id bigint,
   CONSTRAINT comments_pkey PRIMARY KEY (id)
 );
+
 CREATE TABLE topic_comments
 (
   topic_id bigint NOT NULL,
