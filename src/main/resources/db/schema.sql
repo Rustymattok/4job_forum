@@ -13,7 +13,10 @@ CREATE TABLE usr
 CREATE TABLE user_role
 (
   user_id bigint NOT NULL,
-  roles character varying(255)
+  roles character varying(255),
+  CONSTRAINT fkfpm8swft53ulq2hl11yplpr5 FOREIGN KEY (user_id)
+      REFERENCES usr (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE TABLE topic
@@ -23,7 +26,10 @@ CREATE TABLE topic
   created timestamp without time zone,
   name character varying(255),
   user_id bigint,
-  CONSTRAINT topic_pkey PRIMARY KEY (id)
+  CONSTRAINT topic_pkey PRIMARY KEY (id),
+  CONSTRAINT fkrdf7v8xb9v98d0elr0s0bpta5 FOREIGN KEY (user_id)
+      REFERENCES usr (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE TABLE comments
@@ -32,7 +38,13 @@ CREATE TABLE comments
   text character varying(255),
   user_id bigint,
   topic_id bigint,
-  CONSTRAINT comments_pkey PRIMARY KEY (id)
+  CONSTRAINT comments_pkey PRIMARY KEY (id),
+  CONSTRAINT fkoe193dqy22vps4cq755krf76s FOREIGN KEY (user_id)
+      REFERENCES usr (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fktpfse377xh238f1asryjnn2et FOREIGN KEY (topic_id)
+      REFERENCES topic (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 
