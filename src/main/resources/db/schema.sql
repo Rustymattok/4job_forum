@@ -1,6 +1,6 @@
 CREATE TABLE usr
 (
-  id SERIAL,
+  id bigint NOT NULL DEFAULT nextval('hibernate_sequence'::regclass),
   active boolean NOT NULL,
   email character varying(255),
   first_name character varying(255),
@@ -9,19 +9,17 @@ CREATE TABLE usr
   username character varying(255),
   CONSTRAINT usr_pkey PRIMARY KEY (id)
 );
---
 CREATE TABLE user_role
 (
-  user_id SERIAL,
+  user_id bigint NOT NULL DEFAULT nextval('hibernate_sequence'::regclass),
   roles character varying(255),
   CONSTRAINT fk_user_role_us FOREIGN KEY (user_id)
       REFERENCES usr (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
---
 CREATE TABLE topic
 (
-  id SERIAL,
+  id bigint NOT NULL DEFAULT nextval('hibernate_sequence'::regclass),
   content character varying(255),
   created timestamp without time zone,
   name character varying(255),
@@ -31,10 +29,9 @@ CREATE TABLE topic
       REFERENCES usr (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
---
 CREATE TABLE comments
 (
-  id SERIAL,
+  id bigint NOT NULL DEFAULT nextval('hibernate_sequence'::regclass),
   text character varying(255),
   user_id bigint,
   topic_id bigint,

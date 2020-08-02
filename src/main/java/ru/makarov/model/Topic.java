@@ -17,7 +17,7 @@ import java.util.*;
 @Entity
 public class Topic {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
     private String name;
@@ -28,7 +28,8 @@ public class Topic {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
-//    @ManyToMany(fetch = FetchType.EAGER)
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "comments_id")
 //    @JoinTable(name = "topic_comments", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "comments_id"))
 //    private Set<Comments> comments;
 }
