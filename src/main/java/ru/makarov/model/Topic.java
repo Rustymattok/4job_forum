@@ -28,7 +28,7 @@ public class Topic {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "topic_comments", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "comments_id"))
-    private Set<Comments> comments;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "topic_comments", joinColumns = @JoinColumn(name = "topic_id"), inverseJoinColumns = @JoinColumn(name = "comments_id"))
+//    private Set<Comments> comments;
 }
