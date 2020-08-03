@@ -6,7 +6,8 @@ Forum-sample Spring Boot
 # Targets 
 #stack technology
 Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap,Junit,Mockito,Heroku
-#Heroku server
+
+# Heroku server
 Link for Heroku web application: https://forum-4job.herokuapp.com/
 
 Login: Rustymattok
