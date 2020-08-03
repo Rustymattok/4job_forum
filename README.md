@@ -5,17 +5,14 @@ Forum-sample Spring Boot
 [![ALT-ТЕКСТ ИЗОБРАЖЕНИЯ](https://github.com/Rustymattok/4job_forum/blob/master/work-schem.JPG)
 # Targets 
 #stack technology
-Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap,Junit,Mockito
-#todo list
-- добавить опции модератора
-    - может удалять посты
-    - банить пользователей
-    - может закрывать посты
-- добавить при регистрации профиль пользователя
-    - возоможонсть загруажать фото
-    - каждый пользователь можем менять свой профиль
-    - нельзя менять логин и пароль
-- реализовать механизм поиска по форуму.
+Java 1.8, Spring Boot,Spring Security,PostrgeSQL,JPS,bootstrap,Junit,Mockito,Heroku
+#Heroku server
+Link for Heroku web application: https://forum-4job.herokuapp.com/
 
-- добавить БД для тестов
-- добавить миграцию БД
+Login: Rustymattok
+Password: 12345
+
+Test view
+Login: testadmin
+Password: 123456
+

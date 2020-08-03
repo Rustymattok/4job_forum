@@ -88,8 +88,6 @@ public class TopicController {
         Topic topic = topicStore.findAllById(currentTopic.getId());
         Comments newComment = new Comments();
         newComment.setTopic(topic);
-//        User user = (User) org.springframework.security.core.context.SecurityContextHolder
-//                .getContext().getAuthentication().getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userStore.findUserByUsername(auth.getName());
         newComment.setAuthor(userStore.findUserByUsername(user.getUsername()));
