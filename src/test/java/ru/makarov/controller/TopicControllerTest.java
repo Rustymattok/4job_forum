@@ -13,6 +13,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.makarov.SpringWebApplication;
+import ru.makarov.dao.CommentServiceCrud;
 import ru.makarov.model.Comments;
 import ru.makarov.model.Topic;
 import ru.makarov.service.CommentService;
@@ -36,7 +37,7 @@ public class TopicControllerTest {
     private TopicService topics;
 
     @MockBean
-    private CommentService comments;
+    private CommentServiceCrud comments;
 
     /**
      * If User not login rederect him to login page.
@@ -131,9 +132,8 @@ public class TopicControllerTest {
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         ArgumentCaptor<Comments> argument = ArgumentCaptor.forClass(Comments.class);
-        verify(comments).addComments(argument.capture());
+        verify(comments).save(argument.capture());
         assertThat(argument.getValue().getText(), is("spring boot help"));
-        assertThat(argument.getValue().getId(), is(1L));
         assertThat(argument.getValue().getAuthor().getUsername(), is("Rustymattok"));
     }
 }

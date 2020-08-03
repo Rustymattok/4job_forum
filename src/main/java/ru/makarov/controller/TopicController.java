@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.makarov.dao.CommentServiceCrud;
 import ru.makarov.dao.UserServiceCrud;
 import ru.makarov.model.Comments;
 import ru.makarov.model.Topic;
@@ -31,7 +32,7 @@ import java.util.List;
 public class TopicController {
     private final UserServiceCrud userStore;
     private final TopicStore topicStore;
-    private final CommentService commentService;
+    private final CommentServiceCrud commentService;
 
     /**
      * @param userStore      - data base of users.
@@ -39,7 +40,7 @@ public class TopicController {
      * @param commentService - data base of comments.
      */
     @Autowired
-    public TopicController(UserServiceCrud userStore, TopicStore topicStore, CommentService commentService) {
+    public TopicController(UserServiceCrud userStore, TopicStore topicStore, CommentServiceCrud commentService) {
         this.userStore = userStore;
         this.topicStore = topicStore;
         this.commentService = commentService;
@@ -85,13 +86,15 @@ public class TopicController {
     @PostMapping("/singletopic/{id}")
     public String commentPost(@PathVariable int id, @ModelAttribute("comment") Comments comment, @ModelAttribute("topic") Topic currentTopic) {
         Topic topic = topicStore.findAllById(currentTopic.getId());
-        comment.setTopic(topic);
+        Comments newComment = new Comments();
+        newComment.setTopic(topic);
 //        User user = (User) org.springframework.security.core.context.SecurityContextHolder
 //                .getContext().getAuthentication().getPrincipal();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userStore.findUserByUsername(auth.getName());
-        comment.setAuthor(userStore.findUserByUsername(user.getUsername()));
-        commentService.addComments(comment);
+        newComment.setAuthor(userStore.findUserByUsername(user.getUsername()));
+        newComment.setText(comment.getText());
+        commentService.save(newComment);
         String redirectUrl = "/singletopic/" + id;
         return "redirect:" + redirectUrl;
     }
