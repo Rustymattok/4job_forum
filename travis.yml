@@ -1,0 +1,13 @@
+language: java
+sudo: false
+
+install: true
+
+script: mvn clean package -DskipTests=true
+
+notifications:
+  email:
+    recipients:
+  -mrArxi@gmail.com
+on_success: never # default: change
+on_failure: always # default: always
