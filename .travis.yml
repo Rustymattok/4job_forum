@@ -1,13 +1,14 @@
 language: java
 sudo: false
-
 install: true
-
 script: mvn clean package -DskipTests=true
-
 notifications:
   email:
-    recipients:
-  -mrArxi@gmail.com
-on_success: never # default: change
-on_failure: always # default: always
+    recipients: "-mrArxi@gmail.com"
+on_success: never
+on_failure: always
+deploy:
+  provider: heroku
+  api_key:
+    secure: k3/GrKZ1Y4awEhlWVADyDi0mmCjfecsOUjDq4tra99Sn0Uvv3p+8X3W+E7Kk+nAXFLB4JDf60sN5BPtYotfff8F2Qfzk4SB+jisxgKfsmfmP7ucq0rmTUSxnDnupvZFZKNfYMmS82IGA/b5Un42X9uAGEVqGy6g6U7q5XoI0ctTuUQJyKJ4bEkcbEYNaZFSxaaC6gNIROTchnqOXvRhNMF/OA+hfG0kC3v0mL/WuPuarEETxgk01I8Oa9XvJtFNqK4DSwSJ1hvn3ZRY4AZiTUCyUZzlsBmt7hKLHhKaBCfQjH2bnauNHFccLBwtLaaZiSPZ96HHVTkvbzhBHJIUXx6k70R03LDcuBnY1s7qlU5XNu39M2zOLaQ78tXqfm2W3Mi2O2aTmLQlszYDeJ8Nr5oalSOzKfVBM+++aMIi1V30kACZuuqlOdNE7lc/CvIlTdQQw98G8Hyg3BwfG9n13kvgGHPrIxnhjIoeZ0YM1JanP87uNqp3AjnZFFQlpximTeqQgtHSJ9sK7WeM+nEw/Fi0BvGLPw3fSaYUqQL/hNoQBtYNaPIEVRVQHO8HZGMgnlXslEjw4bPqgLnVcA2AxVKSDczykP/0D/1RGv6SaraT4FHBwivpxVsYdGUpASD4R1RRVbKIzXpgv6Uc3Oyml0d9Q8FeKl3sZ7dXmnMi6YZM=
+  app: forum-4job
